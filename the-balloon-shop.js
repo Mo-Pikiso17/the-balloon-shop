@@ -11,27 +11,27 @@ console.log(data.rows)
 
     async function requestColor(color) {
 
-        var nameFirstLetterCap = color[0].toUpperCase() + color.slice(1).toLowerCase();
+        // var nameFirstLetterCap = color[0].toUpperCase() + color.slice(1).toLowerCase();
 
-        var colors = await pool.query("SELECT * FROM valid_color WHERE color_name = $1", [nameFirstLetterCap]);
+        var colors = await pool.query("SELECT * FROM valid_color WHERE color_name = $1", [color]);
 
         if (colors.rows == "Orange") {
 
-            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [nameFirstLetterCap]);
+            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [color]);
             // return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [nameFirstLetterCap]);
 
         } if (colors.rows == "Purple") {
 
-            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [nameFirstLetterCap]);
+            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [color]);
         }
 
         if (colors.rows == "Lime") {
 
-            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [nameFirstLetterCap]);
+            return await pool.query("UPDATE valid_color SET count =  count + 1, WHERE color_name = $1", [color]);
 
         } else {
 
-            return await pool.query("INSERT INTO invalid_color (color_name, count) VALUES ($1, $2)", [nameFirstLetterCap, 1]);
+            return await pool.query("INSERT INTO invalid_color (color_name, count) VALUES ($1, $2)", [color, 1]);
 
         }
 

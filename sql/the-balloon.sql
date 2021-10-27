@@ -7,9 +7,5 @@ INSERT INTO valid_color(color_name, count)VALUES ('Orange', 1);
 INSERT INTO valid_color(color_name, count)VALUES ('Purple', 1);
 INSERT INTO valid_color(color_name, count)VALUES ('Lime', 1);
 
--- INSERT INTO invalid_color(color_name, count)VALUES ('Blue', 1);
--- INSERT INTO invalid_color(color_name, count)VALUES ('Red', 1);
--- INSERT INTO invalid_color(color_name, count)VALUES ('Green', 1);
-
 
 
