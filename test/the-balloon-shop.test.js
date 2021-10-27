@@ -3,7 +3,7 @@ let TheBalloonShop = require("../the-balloon-shop");
 const pg = require("pg");
 const Pool = pg.Pool;
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/my_balloon_tests';
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:moddy123@localhost:5432/my_balloon_tests';
 
 const pool = new Pool({
     connectionString
@@ -14,7 +14,9 @@ describe('The balloon function', function () {
 
     beforeEach(async function () {
         // clean the tables before each test run
-        // await pool.query("delete from valid_colors;");
+        await pool.query("delete from valid_color;");
+
+        
         // add valid colors
     });
 
@@ -22,7 +24,7 @@ describe('The balloon function', function () {
 
         const theBalloonShop = TheBalloonShop(pool, ['Orange', 'Purple', 'Lime']);
     
-        assert.equal(['Orange', 'Purple', 'Lime'], theBalloonShop.getValidColors());
+        assert.equal(['Orange', 'Purple', 'Lime'], await theBalloonShop.getValidColors());
 
     });
 
@@ -34,7 +36,7 @@ describe('The balloon function', function () {
         await theBalloonShop.requestColor('Red');
         await theBalloonShop.requestColor('Green');
 
-        assert.equal(['Blue', 'Red', 'Green'], theBalloonShop.getInvalidColors());
+        assert.equal(['Blue', 'Red', 'Green'], await theBalloonShop.getInvalidColors());
 
     });
 
@@ -50,7 +52,7 @@ describe('The balloon function', function () {
         await theBalloonShop.requestColor('Lime');
 
         assert.equal(4, await theBalloonShop.colorCount('Orange'));
-        assert.equal(1, theBalloonShop.colorCount('Lime'));
+        assert.equal(1, await theBalloonShop.colorCount('Lime'));
         assert.equal(2, await theBalloonShop.colorCount('Purple'));
 
     })
@@ -78,7 +80,7 @@ describe('The balloon function', function () {
         await theBalloonShop.requestColor('Blue')
         await theBalloonShop.requestColor('Blue')
 
-        assert.equal(['Blue', 'Red'], theBalloonShop.getInValidColors());
+        assert.equal(['Blue', 'Red'], await theBalloonShop.getInValidColors());
 
         await theBalloonShop.requestColor('Blue')
 
