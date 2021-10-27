@@ -14,17 +14,19 @@ describe('The balloon function', function () {
 
     beforeEach(async function () {
         // clean the tables before each test run
-        await pool.query("delete from valid_color;");
-
-        
+        await pool.query("delete from valid_color");
         // add valid colors
+        await pool.query ("INSERT INTO valid_color(color_name, count)VALUES ($1, $2)", ['Orange', 1]);
+        await pool.query("INSERT INTO valid_color(color_name, count)VALUES ($1, $2)", ['Purple', 1]);
+        await pool.query("INSERT INTO valid_color(color_name, count)VALUES ($1, $2)", ['Lime', 1]);
+
     });
 
     it('should get the valid colors', async function () {
 
         const theBalloonShop = TheBalloonShop(pool, ['Orange', 'Purple', 'Lime']);
     
-        assert.equal(['Orange', 'Purple', 'Lime'], await theBalloonShop.getValidColors());
+        assert.deepEqual([{color_name:'Orange'}, {color_name:'Purple'}, {color_name:'Lime'}], await theBalloonShop.getValidColors());
 
     });
 
@@ -36,7 +38,7 @@ describe('The balloon function', function () {
         await theBalloonShop.requestColor('Red');
         await theBalloonShop.requestColor('Green');
 
-        assert.equal(['Blue', 'Red', 'Green'], await theBalloonShop.getInvalidColors());
+        assert.equal([{color_name:'Blue'}, {color_name:'Red'}, {color_name:'Green'}], await theBalloonShop.getInvalidColors());
 
     });
 

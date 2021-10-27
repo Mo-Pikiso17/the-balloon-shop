@@ -5,7 +5,7 @@ module.exports = (pool, validColors) => {
     async function getValidColors() {
 
         var data = await pool.query("SELECT color_name FROM valid_color");
-
+console.log(data.rows)
         return data.rows
     }
 
@@ -31,7 +31,7 @@ module.exports = (pool, validColors) => {
 
         } else {
 
-            return await pool.query("INSERT INTO invalid_color (color_name, count) VALUES ($1, $2)" [nameFirstLetterCap, 1]);
+            return await pool.query("INSERT INTO invalid_color (color_name, count) VALUES ($1, $2)", [nameFirstLetterCap, 1]);
 
         }
 
@@ -47,16 +47,16 @@ module.exports = (pool, validColors) => {
 
     async function getInvalidColors() {
 
-        var data = await pool.query("SELECT colour_name FROM invalid_color");
+        var data = await pool.query("SELECT color_name FROM invalid_color");
 
         data.rows
     }
 
     async function allColors() {
 
-        var valid = await pool.query("SELECT colour_name FROM invalid_color");
+        var valid = await pool.query("SELECT color_name FROM invalid_color");
 
-        var invalid = await pool.query("SELECT colour_name FROM invalid_color");
+        var invalid = await pool.query("SELECT color_name FROM invalid_color");
     }
 
     return {
