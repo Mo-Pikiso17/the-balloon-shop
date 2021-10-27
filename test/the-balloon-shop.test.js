@@ -38,7 +38,7 @@ describe('The balloon function', function () {
         await theBalloonShop.requestColor('Red');
         await theBalloonShop.requestColor('Green');
 
-        assert.equal([{color_name:'Blue'}, {color_name:'Red'}, {color_name:'Green'}], await theBalloonShop.getInvalidColors());
+        assert.deepEqual([{color_name:'Blue'}, {color_name:'Red'}, {color_name:'Green'}], await theBalloonShop.getInvalidColors());
 
     });
 
