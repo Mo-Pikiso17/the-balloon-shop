@@ -10,4 +10,4 @@ env:
 
 before_script:
 # - psql -c 'create database template1;' -U postgres
-- psql -U postgres -d template1 -a -f the-balloon.sql 
+- psql -U postgres -d template1 -a -f sql/the-balloon.sql 
